@@ -1,0 +1,17 @@
+[M::mm_idx_gen::14.513*1.45] collected minimizers
+[M::mm_idx_gen::16.630*2.25] sorted minimizers
+[M::main::16.630*2.25] loaded/built the index for 2173 target sequence(s)
+[M::mm_mapopt_update::16.630*2.25] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 21; skip: 11; is_hpc: 0; #seq: 2173
+[M::mm_idx_stat::17.996*2.16] distinct minimizers: 339897453 (96.79% are singletons); average occurrences: 1.184; average spacing: 5.919; total length: 2382787281
+[M::worker_pipeline::25.506*3.83] mapped 333334 sequences
+[M::worker_pipeline::32.614*4.72] mapped 333334 sequences
+[M::worker_pipeline::39.726*5.28] mapped 333334 sequences
+[M::worker_pipeline::46.817*5.68] mapped 333334 sequences
+[M::worker_pipeline::54.075*5.98] mapped 333334 sequences
+[M::worker_pipeline::61.210*6.20] mapped 333334 sequences
+[M::worker_pipeline::68.533*6.38] mapped 333334 sequences
+[M::worker_pipeline::70.580*6.42] mapped 110630 sequences
+[M::main] Version: 2.31-r1302
+[M::main] CMD: minimap2 -ax sr -t 8 -I 8G work/rattus_rattus_genomic.fna work/SRR3948161/candidates.fq
+[M::main] Real time: 70.755 sec; CPU: 453.155 sec; Peak RSS: 14.640 GB

@@ -1,0 +1,4 @@
+seq_a	seq_b	cds_len	cds_diffs	cds_identity_pct	synonymous	nonsynonymous	prot_len_a	prot_len_b	prot_diffs	prot_identity_pct
+rattus_rattus	SRR3948161	723	4	99.447	4	0	240	240	0	100.000
+rattus_rattus	SRR2917427	723	5	99.308	5	0	240	240	0	100.000
+SRR3948161	SRR2917427	723	1	99.862	1	0	240	240	0	100.000

@@ -1,0 +1,14 @@
+name: procr-miniprot
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python >=3.9
+  - miniprot =0.18
+  - minimap2 >=2.28
+  - samtools >=1.20
+  - bcftools >=1.20
+  - sra-tools >=3.1
+  - mafft >=7.5
+  - seqkit >=2.8
+  - curl

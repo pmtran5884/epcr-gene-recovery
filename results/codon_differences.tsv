@@ -1,0 +1,11 @@
+seq_a	seq_b	cds_pos	nt_change	codon_no	codon_change	aa_change	effect
+rattus_rattus	SRR3948161	48	T>C	16	TGT>TGC	C16C	synonymous
+rattus_rattus	SRR3948161	66	T>C	22	GAT>GAC	D22D	synonymous
+rattus_rattus	SRR3948161	294	A>G	98	TTA>TTG	L98L	synonymous
+rattus_rattus	SRR3948161	369	T>G	123	CCT>CCG	P123P	synonymous
+rattus_rattus	SRR2917427	48	T>C	16	TGT>TGC	C16C	synonymous
+rattus_rattus	SRR2917427	66	T>C	22	GAT>GAC	D22D	synonymous
+rattus_rattus	SRR2917427	294	A>G	98	TTA>TTG	L98L	synonymous
+rattus_rattus	SRR2917427	369	T>G	123	CCT>CCG	P123P	synonymous
+rattus_rattus	SRR2917427	426	T>Y	142	TTT>TTY	F142F	synonymous_het
+SRR3948161	SRR2917427	426	T>Y	142	TTT>TTY	F142F	synonymous_het

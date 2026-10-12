@@ -1,0 +1,9 @@
+accession	SRR2917427
+candidate_reads_pass1	5214020
+locus_reads_pass2_q20	10985
+gene_mean_depth	32.21
+locus_variants	1359
+locus_snvs	1168
+locus_indels	191
+gene_span_variants	55
+cds_exonic_variants	5

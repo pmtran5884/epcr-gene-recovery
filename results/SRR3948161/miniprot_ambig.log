@@ -1,0 +1,9 @@
+[M::mp_ntseq_read@0.000*9.62] read 53396 bases in 1 contigs
+[M::mp_idx_build@0.000*8.98] 418 blocks
+[M::mp_idx_build@0.001*4.41] collected syncmers
+[M::mp_idx_build@0.013*1.21] 26166 kmer-block pairs
+[M::mp_idx_print_stat] 25205 distinct k-mers; mean occ of infrequent k-mers: 1.04; 0 frequent k-mers accounting for 0 occurrences
+[M::worker_pipeline::0.018*1.16] mapped 1 sequences
+[M::main] Version: 0.18-r281
+[M::main] CMD: miniprot -t 8 -j 2 --gff --trans --aln --outn=3 results/SRR3948161/locus_consensus_ambig.fa results/query_NP_001020904.1.faa
+[M::main] Real time: 0.018 sec; CPU: 0.021 sec; Peak RSS: 0.066 GB

@@ -1,0 +1,67 @@
+CLUSTAL format alignment by MAFFT L-INS-i (v7.526)
+
+
+rattus_rattus   atgttgacgaagtttctgtcgctgctgctgctgctgctgcctggctgtgccttttgtaac
+SRR3948161      atgttgacgaagtttctgtcgctgctgctgctgctgctgcctggctgcgccttttgtaac
+SRR2917427      atgttgacgaagtttctgtcgctgctgctgctgctgctgcctggctgcgccttttgtaac
+                ***********************************************.************
+
+rattus_rattus   tccgatggctcccaaagcctgcacatgctccagatctcctacttcccagacccctatcac
+SRR3948161      tccgacggctcccaaagcctgcacatgctccagatctcctacttcccagacccctatcac
+SRR2917427      tccgacggctcccaaagcctgcacatgctccagatctcctacttcccagacccctatcac
+                *****.******************************************************
+
+rattus_rattus   gggaggcatcagggcaacgcctctctgggaaaactcctgacacacacgctggaaggcccg
+SRR3948161      gggaggcatcagggcaacgcctctctgggaaaactcctgacacacacgctggaaggcccg
+SRR2917427      gggaggcatcagggcaacgcctctctgggaaaactcctgacacacacgctggaaggcccg
+                ************************************************************
+
+rattus_rattus   agcaacaacatcaccattctccagctccaggactggcaggatccggatagctgggcgcgc
+SRR3948161      agcaacaacatcaccattctccagctccaggactggcaggatccggatagctgggcgcgc
+SRR2917427      agcaacaacatcaccattctccagctccaggactggcaggatccggatagctgggcgcgc
+                ************************************************************
+
+rattus_rattus   acagagagtggcctgaagctctacctgtcccagttcaacagcctggtgcagttaatctat
+SRR3948161      acagagagtggcctgaagctctacctgtcccagttcaacagcctggtgcagttgatctat
+SRR2917427      acagagagtggcctgaagctctacctgtcccagttcaacagcctggtgcagttgatctat
+                *****************************************************.******
+
+rattus_rattus   cgcgagcgcaagaacaacgtggtctttcctctgactgttagctgctccgtgggctgtgag
+SRR3948161      cgcgagcgcaagaacaacgtggtctttcctctgactgttagctgctccgtgggctgtgag
+SRR2917427      cgcgagcgcaagaacaacgtggtctttcctctgactgttagctgctccgtgggctgtgag
+                ************************************************************
+
+rattus_rattus   ctgccgcctgaggagggctctgaaccccatgtcttctttgatgtggccgtgaatggaagt
+SRR3948161      ctgccgccggaggagggctctgaaccccatgtcttctttgatgtggccgtgaatggaagt
+SRR2917427      ctgccgccggaggagggctctgaaccccatgtcttctttgatgtggccgtgaatggaagt
+                ******** ***************************************************
+
+rattus_rattus   gcctttgtaagtttccagccgaagactgccatatgggtgacaggctcccaggagccctcc
+SRR3948161      gcctttgtaagtttccagccgaagactgccatatgggtgacaggctcccaggagccctcc
+SRR2917427      gccttygtaagtttccagccgaagactgccatatgggtgacaggctcccaggagccctcc
+                ***** ******************************************************
+
+rattus_rattus   gaagccatcaacttcaccctgaagcaactcaatacctacaaccggactcggtatgaactg
+SRR3948161      gaagccatcaacttcaccctgaagcaactcaatacctacaaccggactcggtatgaactg
+SRR2917427      gaagccatcaacttcaccctgaagcaactcaatacctacaaccggactcggtatgaactg
+                ************************************************************
+
+rattus_rattus   caggaatttctgcaggacacctgtgtgcagtacctggagaaccacatcaccacgcaaaac
+SRR3948161      caggaatttctgcaggacacctgtgtgcagtacctggagaaccacatcaccacgcaaaac
+SRR2917427      caggaatttctgcaggacacctgtgtgcagtacctggagaaccacatcaccacgcaaaac
+                ************************************************************
+
+rattus_rattus   accaaagggagccaaacaggccgctcttacacttcactggtcctgggtatcctgatgggc
+SRR3948161      accaaagggagccaaacaggccgctcttacacttcactggtcctgggtatcctgatgggc
+SRR2917427      accaaagggagccaaacaggccgctcttacacttcactggtcctgggtatcctgatgggc
+                ************************************************************
+
+rattus_rattus   tgtttcataatcgctggtgtggccgtgggcatcttcctgtgcacaggtggacggcgttgc
+SRR3948161      tgtttcataatcgctggtgtggccgtgggcatcttcctgtgcacaggtggacggcgttgc
+SRR2917427      tgtttcataatcgctggtgtggccgtgggcatcttcctgtgcacaggtggacggcgttgc
+                ************************************************************
+
+rattus_rattus   taa
+SRR3948161      taa
+SRR2917427      taa
+                ***

@@ -1,0 +1,5 @@
+accession	SRR2917427
+size_bytes	39016189758
+md5_expected	3ef25cc7f80c457237fc642368b94661
+url	https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR2917427/SRR2917427
+md5_observed	3ef25cc7f80c457237fc642368b94661

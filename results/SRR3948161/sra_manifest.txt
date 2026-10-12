@@ -1,0 +1,5 @@
+accession	SRR3948161
+size_bytes	15239699544
+md5_expected	3c95c145decb87b6e100ba67815394db
+url	https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR3948161/SRR3948161
+md5_observed	3c95c145decb87b6e100ba67815394db

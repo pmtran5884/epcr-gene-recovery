@@ -1,0 +1,9 @@
+[M::mp_ntseq_read@2.389*0.99] read 2382787281 bases in 2173 contigs
+[M::mp_idx_build@2.389*0.99] 18617730 blocks
+[M::mp_idx_build@12.081*5.94] collected syncmers
+[M::mp_idx_build@20.663*3.81] 1118873404 kmer-block pairs
+[M::mp_idx_print_stat] 2413147 distinct k-mers; mean occ of infrequent k-mers: 448.38; 1195 frequent k-mers accounting for 37406401 occurrences
+[M::worker_pipeline::21.082*3.76] mapped 1 sequences
+[M::main] Version: 0.18-r281
+[M::main] CMD: miniprot -t 8 -j 2 --gff --trans --aln --outn=5 work/rattus_rattus_genomic.fna results/query_NP_001020904.1.faa
+[M::main] Real time: 21.159 sec; CPU: 79.253 sec; Peak RSS: 17.326 GB

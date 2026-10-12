@@ -1,0 +1,7 @@
+# Large intermediates all live under work/ : genome FASTA, .sra runs, the
+# promiscuous capture BAM, candidate fastq, fasterq-dump scratch.
+# Everything in results/ is small enough to commit (largest is a ~400 KB BAM).
+work/
+*.sra
+__pycache__/
+.DS_Store

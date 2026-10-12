@@ -1,0 +1,25 @@
+[M::mm_idx_gen::14.295*1.46] collected minimizers
+[M::mm_idx_gen::16.350*2.27] sorted minimizers
+[M::main::16.350*2.27] loaded/built the index for 2173 target sequence(s)
+[M::mm_mapopt_update::16.350*2.27] mid_occ = 1000
+[M::mm_idx_stat] kmer size: 21; skip: 11; is_hpc: 0; #seq: 2173
+[M::mm_idx_stat::17.749*2.17] distinct minimizers: 339897453 (96.79% are singletons); average occurrences: 1.184; average spacing: 5.919; total length: 2382787281
+[M::worker_pipeline::25.109*3.85] mapped 333334 sequences
+[M::worker_pipeline::32.010*4.75] mapped 333334 sequences
+[M::worker_pipeline::44.486*5.59] mapped 333334 sequences
+[M::worker_pipeline::57.396*6.14] mapped 333334 sequences
+[M::worker_pipeline::70.707*6.46] mapped 333334 sequences
+[M::worker_pipeline::83.034*6.69] mapped 333334 sequences
+[M::worker_pipeline::95.083*6.86] mapped 333334 sequences
+[M::worker_pipeline::107.379*6.99] mapped 333334 sequences
+[M::worker_pipeline::120.085*7.10] mapped 333334 sequences
+[M::worker_pipeline::133.022*7.19] mapped 333334 sequences
+[M::worker_pipeline::145.885*7.25] mapped 333334 sequences
+[M::worker_pipeline::157.989*7.31] mapped 333334 sequences
+[M::worker_pipeline::169.949*7.36] mapped 333334 sequences
+[M::worker_pipeline::182.844*7.40] mapped 333334 sequences
+[M::worker_pipeline::195.664*7.44] mapped 333334 sequences
+[M::worker_pipeline::203.565*7.45] mapped 214010 sequences
+[M::main] Version: 2.31-r1302
+[M::main] CMD: minimap2 -ax sr -t 8 -I 8G work/rattus_rattus_genomic.fna work/SRR2917427/candidates.fq
+[M::main] Real time: 203.790 sec; CPU: 1517.212 sec; Peak RSS: 14.716 GB
