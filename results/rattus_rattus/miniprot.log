@@ -1,9 +1,9 @@
-[M::mp_ntseq_read@2.373*0.99] read 2382787281 bases in 2173 contigs
-[M::mp_idx_build@2.373*0.99] 18617730 blocks
-[M::mp_idx_build@11.668*6.10] collected syncmers
-[M::mp_idx_build@17.499*4.36] 1118873404 kmer-block pairs
+[M::mp_ntseq_read@2.362*0.99] read 2382787281 bases in 2173 contigs
+[M::mp_idx_build@2.363*0.99] 18617730 blocks
+[M::mp_idx_build@11.650*6.10] collected syncmers
+[M::mp_idx_build@17.630*4.32] 1118873404 kmer-block pairs
 [M::mp_idx_print_stat] 2413147 distinct k-mers; mean occ of infrequent k-mers: 448.38; 1195 frequent k-mers accounting for 37406401 occurrences
-[M::worker_pipeline::17.724*4.32] mapped 1 sequences
+[M::worker_pipeline::17.837*4.28] mapped 1 sequences
 [M::main] Version: 0.18-r281
 [M::main] CMD: miniprot -t 8 -j 2 --gff --trans --aln --outn=5 work/rattus_rattus.fna results/query_NP_001020904.1.faa
-[M::main] Real time: 17.773 sec; CPU: 76.529 sec; Peak RSS: 20.249 GB
+[M::main] Real time: 17.878 sec; CPU: 76.393 sec; Peak RSS: 19.991 GB

@@ -175,7 +175,8 @@ def main():
 
     with open(os.path.join(a.out_dir, "protein.faa"), "w") as fh:
         fh.write(f">{a.label}_EPCR miniprot/{a.assembly_acc} query={checks['query']} "
-                 f"{mrna['contig']}:{mrna['start']}-{mrna['end']}({strand}) {len(prot_nostop)}aa\n")
+                 f"{mrna['contig']}:{checks['cds_start']}-{checks['cds_end']}({strand}) "
+                 f"{len(prot_nostop)}aa CDS={len(cds)}bp exons={len(exons)}\n")
         for i in range(0, len(prot_nostop), 60):
             fh.write(prot_nostop[i:i + 60] + "\n")
     with open(os.path.join(a.out_dir, "cds.fna"), "w") as fh:

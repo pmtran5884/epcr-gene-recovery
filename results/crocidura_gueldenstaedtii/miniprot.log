@@ -1,9 +1,9 @@
-[M::mp_ntseq_read@2.554*0.99] read 2571728606 bases in 146 contigs
-[M::mp_idx_build@2.554*0.99] 20091760 blocks
-[M::mp_idx_build@11.944*6.30] collected syncmers
-[M::mp_idx_build@16.614*4.81] 1178685613 kmer-block pairs
+[M::mp_ntseq_read@2.550*0.99] read 2571728606 bases in 146 contigs
+[M::mp_idx_build@2.550*0.99] 20091760 blocks
+[M::mp_idx_build@11.994*6.27] collected syncmers
+[M::mp_idx_build@17.190*4.67] 1178685613 kmer-block pairs
 [M::mp_idx_print_stat] 2412387 distinct k-mers; mean occ of infrequent k-mers: 438.34; 2496 frequent k-mers accounting for 122337741 occurrences
-[M::worker_pipeline::16.711*4.79] mapped 1 sequences
+[M::worker_pipeline::17.327*4.64] mapped 1 sequences
 [M::main] Version: 0.18-r281
 [M::main] CMD: miniprot -t 8 -j 2 --gff --trans --aln --outn=5 work/crocidura_gueldenstaedtii.fna results/query_XP_004612598.1.faa
-[M::main] Real time: 16.762 sec; CPU: 80.108 sec; Peak RSS: 21.174 GB
+[M::main] Real time: 17.370 sec; CPU: 80.377 sec; Peak RSS: 20.755 GB
