@@ -1,0 +1,9 @@
+[M::mp_ntseq_read@2.256*0.99] read 2250831529 bases in 420 contigs
+[M::mp_idx_build@2.256*0.99] 17585018 blocks
+[M::mp_idx_build@10.830*6.46] collected syncmers
+[M::mp_idx_build@15.232*4.88] 1104467785 kmer-block pairs
+[M::mp_idx_print_stat] 2412771 distinct k-mers; mean occ of infrequent k-mers: 421.08; 1995 frequent k-mers accounting for 89330756 occurrences
+[M::worker_pipeline::15.313*4.86] mapped 1 sequences
+[M::main] Version: 0.18-r281
+[M::main] CMD: miniprot -t 8 -j 2 --gff --trans --aln --outn=5 work/blarina_brevicauda.fna results/query_XP_004612598.1.faa
+[M::main] Real time: 15.348 sec; CPU: 74.478 sec; Peak RSS: 21.190 GB

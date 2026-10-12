@@ -2,31 +2,71 @@
 
 ## Problem
 
-*Rattus rattus* has a chromosome-level assembly, so extracting its PROCR/EPCR coding sequence is a
-protein-to-genome alignment and nothing more. *Rattus flavipectus* does not: the name is an NCBI
-**synonym of *Rattus tanezumi*** (taxid 35732), and that taxon has **no genome assembly, no WGS
-contigs and no PROCR mRNA** deposited. Queried on 2026-10-12, its 2,688 nucleotide records are all
-shorter than 20 kb (mitochondrial genomes and barcode amplicons); the only genome-scale data are
-9 WGS runs in the SRA. There is therefore no deposited sequence for miniprot to align a protein
-against, and the *flavipectus* sequence reported here is a **read-based reconstruction** of the
-locus — it should be cited as such, with the run accession, not as a deposited sequence.
+Three species need an EPCR coding sequence and none of them has an annotated *PROCR* record.
+They fail in two different ways, which is why the pipeline has two routes.
 
-## Query and reference
+**Unannotated assembly** — *Blarina brevicauda* (`GCA_051295465.2`, 419 scaffolds, 2.25 Gb) and
+*Crocidura gueldenstaedtii* (`GCA_965212715.2`, 145 scaffolds, 2.57 Gb) both have genomes but
+carry **no NCBI annotation of any kind**. Annotation is not required: miniprot aligns a relative's
+protein onto raw assembly sequence and infers the exon structure itself. This distinction matters
+because "no annotated PROCR" is often read as "nothing can be extracted" — the gene is in the
+assembly, it simply has no gene model pointing at it.
 
-The query protein is *R. norvegicus* EPCR precursor `NP_001020904.1` (241 aa). The reference
-assembly is `GCF_011064425.1` (Rrattus_CSIRO_v1, 2,382,787,281 bp in 2,173 sequences).
+**No assembly at all** — *Rattus flavipectus* is an NCBI **synonym of *Rattus tanezumi***
+(taxid 35732). Queried on 2026-10-12, that taxon has no genome assembly, no WGS contigs and no
+PROCR mRNA; all 2,688 of its nucleotide records are shorter than 20 kb (mitochondrial genomes and
+barcode amplicons), and the only genome-scale data are 9 WGS runs in the SRA. Nothing deposited can
+be handed to miniprot, so the locus is reconstructed from reads first.
 
-miniprot 0.18-r281 is run with the vertebrate splice model and 8 threads:
+Every sequence produced here is a gene prediction and should be cited with its assembly or run
+accession, never as a deposited sequence.
+
+## Assembly route
 
 ```
-miniprot -t 8 -j 2 --gff --trans --aln --outn=5 <genome.fna> <query.faa>
+miniprot -t 8 -j 2 --gff --trans --aln --outn=5 <assembly.fna> <query.faa>
 ```
+
+The `Rank=1` hit defines the contig, strand and CDS exons; `scripts/extract_cds_from_gff.py`
+splices them (reverse-complementing per exon for a minus-strand gene), translates, and runs the
+checks below. Queries are chosen by clade: *R. norvegicus* `NP_001020904.1` for the rats,
+*Sorex araneus* `XP_004612598.1` for the shrews.
+
+### The start-codon correction
+
+miniprot reports the alignment of the *query*, which is not always the gene's own reading frame.
+With the end bonus (`-B`, default 5) it prefers to align the full query, so a diverged query's
+N-terminus can run past the target's start codon into upstream genomic sequence. On *Crocidura*
+(82% identity to the *Sorex* query) it extended 15 bp / 5 codons, and the raw translation began
+`NVSPR`-`MLTALLP…`.
+
+The correction is deterministic: if the translation does not begin with M, trim to the first
+in-frame ATG within `--max-trim-codons` (default 20) and adjust the exon coordinates to match. On
+*Crocidura* this trims 15 bp (codon 6) and gives a 726 bp CDS, ATG…TAG, 241 aa; on *Blarina*, whose
+translation already starts with M, it trims nothing. Earlier work on *Crocidura* achieved the same
+result with hardcoded exon coordinates — `scripts/standalone/README.md` shows that those
+coordinates are miniprot's own exons with exon 1 trimmed by exactly those 15 bp, and why encoding
+the rule beats freezing the coordinates.
+
+### Checks applied to every assembly-route extraction
+
+Recorded in `results/<taxon>/qc.tsv`, and the script exits non-zero if any fails: CDS is a multiple
+of three, translation starts with M, CDS ends in a stop codon, no internal stop, no ambiguous
+residue, plus the reported frameshift count (`fs:i:` in miniprot's PAF) and the exon count. These
+are exactly the checks that catch an N-terminal over-extension, a missed exon or a frameshifted
+assembly region.
+
+## The scaffold species
+
+*Rattus rattus* (`GCF_011064425.1`, Rrattus_CSIRO_v1, 2,382,787,281 bp in 2,173 sequences) is run
+through the assembly route like any other species, but it is not a target. It has a RefSeq
+annotation, so its extraction is an end-to-end control: miniprot's translation must equal
+`XP_032760446.1`, and it does. It also supplies the bait locus (gene ± 25 kb) for the reads route.
 
 `-j 2` selects the vertebrate/insect splice model; `--trans` emits the translated CDS as a `##STA`
-record, which is what we take as the protein. The best hit (`Rank=1`) defines the gene span and the
-four CDS exons used downstream.
+record.
 
-## Reconstruction from reads
+## Reads route: reconstruction for a taxon with no assembly
 
 ### Getting the reads
 
@@ -131,7 +171,10 @@ miniprot 0.18-r281; minimap2; samtools/bcftools 1.x; sra-tools 3.4.1; MAFFT 7.52
 
 ## Data
 
-- `GCF_011064425.1` — *R. rattus* assembly (Rrattus_CSIRO_v1)
-- `NP_001020904.1` — *R. norvegicus* EPCR query protein
-- `XP_032760446.1` — *R. rattus* RefSeq EPCR, used only as an independent check
-- `SRR3948161`, `SRR2917427` — *R. tanezumi* (= *flavipectus*) WGS runs
+- `GCA_051295465.2` — *Blarina brevicauda* assembly (mBlaBre1_p1.2), unannotated
+- `GCA_965212715.2` — *Crocidura gueldenstaedtii* assembly (mCroZim1.2), unannotated
+- `GCF_011064425.1` — *R. rattus* assembly (Rrattus_CSIRO_v1), scaffold and control
+- `XP_004612598.1` — *Sorex araneus* EPCR, query for the shrews (245 aa)
+- `NP_001020904.1` — *R. norvegicus* EPCR, query for the rats (241 aa)
+- `XP_032760446.1` — *R. rattus* RefSeq EPCR, used only as the control
+- `SRR3948161` (PRJNA330658, ~12×), `SRR2917427` (PRJNA301523, ~32×) — *R. tanezumi* WGS runs

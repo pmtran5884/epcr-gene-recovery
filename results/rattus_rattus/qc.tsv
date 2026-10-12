@@ -1,0 +1,20 @@
+label	rattus_rattus
+assembly	GCF_011064425.1
+query	NP_001020904.1
+contig	NC_046158.1
+strand	+
+gene_start	135103022
+gene_end	135106686
+cds_start	135103022
+cds_end	135106686
+identity_to_query	0.9793
+frameshifts_reported	0
+cds_exons	4
+cds_bp	723
+cds_multiple_of_3	yes
+protein_aa	240
+starts_with_M	yes
+ends_with_stop	yes
+internal_stops	0
+ambiguous_residues	0
+n_terminal_trim	none (already starts with M)

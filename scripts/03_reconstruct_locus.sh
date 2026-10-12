@@ -19,7 +19,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 source config/params.sh
 ACC="${1:?usage: 03_reconstruct_locus.sh <SRR accession>}"
-FNA="$WORK/${REF_LABEL}_genomic.fna"
+FNA="$WORK/${REF_LABEL}.fna"
 REF="$RESULTS/$REF_LABEL"
 OUT="$RESULTS/$ACC"
 TMP="$WORK/$ACC"
@@ -71,7 +71,7 @@ N_LOCUS=$(samtools view -c "$OUT/locus.bam")
 : > "$OUT/exon_depth.tsv"
 printf 'exon\tstart\tend\tbp\tmean_depth\tmin_depth\tbp_below_min_depth\n' >> "$OUT/exon_depth.tsv"
 i=0
-while read -r c s e; do
+while read -r c s e _rest; do
   i=$(( i + 1 ))
   samtools depth -a -r "${c}:$(( s + 1 ))-${e}" "$OUT/locus.bam" \
     | awk -v i="$i" -v s="$(( s + 1 ))" -v e="$e" -v d="$MIN_DEPTH" \
@@ -129,7 +129,7 @@ N_SNV=$(bcftools view -H -v snps "$OUT/locus.vcf.gz" | wc -l | tr -d ' ')
 N_IND=$(bcftools view -H -v indels "$OUT/locus.vcf.gz" | wc -l | tr -d ' ')
 N_GENE=$(bcftools view -H -r "${CTG}:${GS}-${GE}" "$OUT/locus.vcf.gz" | wc -l | tr -d ' ')
 : > "$OUT/exonic_variants.tsv"
-while read -r c s e; do
+while read -r c s e _rest; do
   bcftools view -H -r "${c}:$(( s + 1 ))-${e}" "$OUT/locus.vcf.gz" | cut -f1,2,4,5,6 >> "$OUT/exonic_variants.tsv"
 done < "$REF/cds_exons.bed"
 N_EX=$(wc -l < "$OUT/exonic_variants.tsv" | tr -d ' ')

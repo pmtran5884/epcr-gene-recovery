@@ -1,67 +1,93 @@
 CLUSTAL format alignment by MAFFT L-INS-i (v7.526)
 
 
-rattus_rattus   atgttgacgaagtttctgtcgctgctgctgctgctgctgcctggctgtgccttttgtaac
-SRR3948161      atgttgacgaagtttctgtcgctgctgctgctgctgctgcctggctgcgccttttgtaac
-SRR2917427      atgttgacgaagtttctgtcgctgctgctgctgctgctgcctggctgcgccttttgtaac
-                ***********************************************.************
+rattus_rattus   atgttgacgaagtttctg------tcgctgctgctgctgctgctgcctggctgtgccttt
+blarina_brevica atgttgacgccgccgctgctggctctgctgcctctatttctcctgccgggccgggccctt
+crocidura_gueld atgttgacagcgctgctg------cctctgcctctacttctcctgcctggctgggttctt
+SRR3948161      atgttgacgaagtttctg------tcgctgctgctgctgctgctgcctggctgcgccttt
+SRR2917427      atgttgacgaagtttctg------tcgctgctgctgctgctgctgcctggctgcgccttt
+                ********.  *.. ***      .. ****. **..* ** ***** ***.* *...**
 
-rattus_rattus   tccgatggctcccaaagcctgcacatgctccagatctcctacttcccagacccctatcac
-SRR3948161      tccgacggctcccaaagcctgcacatgctccagatctcctacttcccagacccctatcac
-SRR2917427      tccgacggctcccaaagcctgcacatgctccagatctcctacttcccagacccctatcac
-                *****.******************************************************
+rattus_rattus   tgtaa---------ctccgatggctcccaaagcctgcacatgctccagatctcctacttc
+blarina_brevica tgcagggaggaagcgtcggagggcccacagaacctgcacatgctccagatttcctacttc
+crocidura_gueld tgcagccacgaagcctcagagggcccacagagcctccacatgctccagatctcctacttc
+SRR3948161      tgtaa---------ctccgacggctcccaaagcctgcacatgctccagatctcctacttc
+SRR2917427      tgtaa---------ctccgacggctcccaaagcctgcacatgctccagatctcctacttc
+                **.*.          ** ** ***.* **.*.*** **************.*********
 
-rattus_rattus   gggaggcatcagggcaacgcctctctgggaaaactcctgacacacacgctggaaggcccg
-SRR3948161      gggaggcatcagggcaacgcctctctgggaaaactcctgacacacacgctggaaggcccg
-SRR2917427      gggaggcatcagggcaacgcctctctgggaaaactcctgacacacacgctggaaggcccg
-                ************************************************************
+rattus_rattus   ccagacccctatcacgggaggcatcagggcaacgcctctctgggaaaactcctgacacac
+blarina_brevica cgcaaccccaatcaagtgtggcatcacggcaacgcgacgctcggggggcttcccacgcac
+crocidura_gueld cgcaaccccaatcaagtatggcatcacggcaacgcgtcgctcatggggcatcccacacac
+SRR3948161      ccagacccctatcacgggaggcatcagggcaacgcctctctgggaaaactcctgacacac
+SRR2917427      ccagacccctatcacgggaggcatcagggcaacgcctctctgggaaaactcctgacacac
+                *  .***** **** * . ******* ********  * ** . ....* .*. **.***
 
-rattus_rattus   agcaacaacatcaccattctccagctccaggactggcaggatccggatagctgggcgcgc
-SRR3948161      agcaacaacatcaccattctccagctccaggactggcaggatccggatagctgggcgcgc
-SRR2917427      agcaacaacatcaccattctccagctccaggactggcaggatccggatagctgggcgcgc
-                ************************************************************
+rattus_rattus   acgctggaaggcccgagcaacaacatcaccattctccagctccaggactggcaggatccg
+blarina_brevica aagctggaaggctggggcaccaatgtcacgttcgttcagctgcagcccttgcaggacccg
+crocidura_gueld aagctggaaggccggggcaccaatgtcacctttgtccagctgcagcccctgcaggaccca
+SRR3948161      acgctggaaggcccgagcaacaacatcaccattctccagctccaggactggcaggatccg
+SRR2917427      acgctggaaggcccgagcaacaacatcaccattctccagctccaggactggcaggatccg
+                * **********. *.*** ***..****  *. *.***** ***  *. ******.**.
 
-rattus_rattus   acagagagtggcctgaagctctacctgtcccagttcaacagcctggtgcagttaatctat
-SRR3948161      acagagagtggcctgaagctctacctgtcccagttcaacagcctggtgcagttgatctat
-SRR2917427      acagagagtggcctgaagctctacctgtcccagttcaacagcctggtgcagttgatctat
-                *****************************************************.******
+rattus_rattus   gatagctgggcgcgcacagagagtggcctgaagctctacctgtcccagttcaacagcctg
+blarina_brevica gagagctgggccatcatggaggaaggcttgcggctctacatccagcagttctacagcctc
+crocidura_gueld gagagctgggcgatcatggaggaaagccttcgactctacatccagcagttctacagcctt
+SRR3948161      gatagctgggcgcgcacagagagtggcctgaagctctacctgtcccagttcaacagcctg
+SRR2917427      gatagctgggcgcgcacagagagtggcctgaagctctacctgtcccagttcaacagcctg
+                ** ********   **..***.. .**.*  ..****** * .  ****** ******* 
 
-rattus_rattus   cgcgagcgcaagaacaacgtggtctttcctctgactgttagctgctccgtgggctgtgag
-SRR3948161      cgcgagcgcaagaacaacgtggtctttcctctgactgttagctgctccgtgggctgtgag
-SRR2917427      cgcgagcgcaagaacaacgtggtctttcctctgactgttagctgctccgtgggctgtgag
-                ************************************************************
+rattus_rattus   gtgcagttaatctatcgcgagcgcaagaacaacgtggtctttcctctgactgttagctgc
+blarina_brevica gtgaggctggtgcaccaggagcg------ccatctgtcctttcccatgactgttcgctgc
+crocidura_gueld gtgaggctggtgcaccaggagcg------acatgtagcctttcctgtgactgttcgctgc
+SRR3948161      gtgcagttgatctatcgcgagcgcaagaacaacgtggtctttcctctgactgttagctgc
+SRR2917427      gtgcagttgatctatcgcgagcgcaagaacaacgtggtctttcctctgactgttagctgc
+                *** .*.*..* .*.*. *****        *. *. .******. ******** *****
 
-rattus_rattus   ctgccgcctgaggagggctctgaaccccatgtcttctttgatgtggccgtgaatggaagt
-SRR3948161      ctgccgccggaggagggctctgaaccccatgtcttctttgatgtggccgtgaatggaagt
-SRR2917427      ctgccgccggaggagggctctgaaccccatgtcttctttgatgtggccgtgaatggaagt
-                ******** ***************************************************
+rattus_rattus   tccgtgggctgtgagctgccgcctgaggagggctctgaaccccatgtcttctttgatgtg
+blarina_brevica tccctgggctgtgagctgccaac---cgagggttccaaagccaacaccttctttgacgtg
+crocidura_gueld ttcctggggtgtgagctaccctc---agaggacaccaaagccagtaccttcttcgaagtg
+SRR3948161      tccgtgggctgtgagctgccgccggaggagggctctgaaccccatgtcttctttgatgtg
+SRR2917427      tccgtgggctgtgagctgccgccggaggagggctctgaaccccatgtcttctttgatgtg
+                *.* **** ********.**  *    ****.. *..** ** ....******.** ***
 
-rattus_rattus   gcctttgtaagtttccagccgaagactgccatatgggtgacaggctcccaggagccctcc
-SRR3948161      gcctttgtaagtttccagccgaagactgccatatgggtgacaggctcccaggagccctcc
-SRR2917427      gccttygtaagtttccagccgaagactgccatatgggtgacaggctcccaggagccctcc
-                ***** ******************************************************
+rattus_rattus   gccgtgaatggaagtgcctttgtaagtttccagccgaagactgccatatgggtgacaggc
+blarina_brevica agtgtgaatggcagcgccttcatgagcttccagcccgagacagcactgtgggtggcaggg
+crocidura_gueld accgtgaacggaagcgccttcgtgagtttccagccagaaacagctctgtgggtggcagca
+SRR3948161      gccgtgaatggaagtgcctttgtaagtttccagccgaagactgccatatgggtgacaggc
+SRR2917427      gccgtgaatggaagtgccttygtaagtttccagccgaagactgccatatgggtgacaggc
+                . .*****.** **.***** .*.**.******** .*.** **  *.******.***  
 
-rattus_rattus   gaagccatcaacttcaccctgaagcaactcaatacctacaaccggactcggtatgaactg
-SRR3948161      gaagccatcaacttcaccctgaagcaactcaatacctacaaccggactcggtatgaactg
-SRR2917427      gaagccatcaacttcaccctgaagcaactcaatacctacaaccggactcggtatgaactg
-                ************************************************************
+rattus_rattus   tcccaggagccctccgaagccatcaacttcaccctgaagcaactcaatacctacaaccgg
+blarina_brevica ccccacgttacctccaaagtggccacctacaccctgcagcagctcaacgcctacaaccgg
+crocidura_gueld ccccacactcactccagagtggccacctacacactacagcagctcaacgcctacaaccgg
+SRR3948161      tcccaggagccctccgaagccatcaacttcaccctgaagcaactcaatacctacaaccgg
+SRR2917427      tcccaggagccctccgaagccatcaacttcaccctgaagcaactcaatacctacaaccgg
+                .**** .    ****..**. ..** ** *** **. ****.*****..***********
 
-rattus_rattus   caggaatttctgcaggacacctgtgtgcagtacctggagaaccacatcaccacgcaaaac
-SRR3948161      caggaatttctgcaggacacctgtgtgcagtacctggagaaccacatcaccacgcaaaac
-SRR2917427      caggaatttctgcaggacacctgtgtgcagtacctggagaaccacatcaccacgcaaaac
-                ************************************************************
+rattus_rattus   actcggtatgaactgcaggaatttctgcaggacacctgtgtgcagtacctggagaaccac
+blarina_brevica actcggtttgagctgcaggagttcctggaagacacgtgtgtacagtatgtgaaagatcac
+crocidura_gueld actcgttttgaactgcaggagttcctgcaagacacgtgtgtgcaatatgtgcaggaacac
+SRR3948161      actcggtatgaactgcaggaatttctgcaggacacctgtgtgcagtacctggagaaccac
+SRR2917427      actcggtatgaactgcaggaatttctgcaggacacctgtgtgcagtacctggagaaccac
+                ***** * ***.********.**.*** *.***** *****.**.**. ** *..* ***
 
-rattus_rattus   accaaagggagccaaacaggccgctcttacacttcactggtcctgggtatcctgatgggc
-SRR3948161      accaaagggagccaaacaggccgctcttacacttcactggtcctgggtatcctgatgggc
-SRR2917427      accaaagggagccaaacaggccgctcttacacttcactggtcctgggtatcctgatgggc
-                ************************************************************
+rattus_rattus   atcaccacgcaaaacaccaaagggagccaaacaggccgctcttacacttcactggtcctg
+blarina_brevica ggcagcgtgataaaagagacaggcagccaaaaaggccgttcctacacttcgctggttctg
+crocidura_gueld agcggcatgaaagacaagaaaggtaaacaaaaaagtcgctcgtatacttcactggtcttg
+SRR3948161      atcaccacgcaaaacaccaaagggagccaaacaggccgctcttacacttcactggtcctg
+SRR2917427      atcaccacgcaaaacaccaaagggagccaaacaggccgctcttacacttcactggtcctg
+                . *. *..*  *.* .  * *** *. **** *.*.**.** **.*****.*****..**
 
-rattus_rattus   tgtttcataatcgctggtgtggccgtgggcatcttcctgtgcacaggtggacggcgttgc
-SRR3948161      tgtttcataatcgctggtgtggccgtgggcatcttcctgtgcacaggtggacggcgttgc
-SRR2917427      tgtttcataatcgctggtgtggccgtgggcatcttcctgtgcacaggtggacggcgttgc
-                ************************************************************
+rattus_rattus   ggtatcctgatgggctgtttcataatcgctggtgtggccgtgggcatcttcctgtgcaca
+blarina_brevica ggcatcctgatgggttgtttcatcattgctggtgtggctgttggcatcttcctctgcaca
+crocidura_gueld ggcctcctgatgggctgttttatcgttgctggtgtggctgtgggcatcttcctgtgcaca
+SRR3948161      ggtatcctgatgggctgtttcataatcgctggtgtggccgtgggcatcttcctgtgcaca
+SRR2917427      ggtatcctgatgggctgtttcataatcgctggtgtggccgtgggcatcttcctgtgcaca
+                **. **********.*****.** .*.***********.** *********** ******
 
-rattus_rattus   taa
-SRR3948161      taa
-SRR2917427      taa
-                ***
+rattus_rattus   ggtggacggcgttgcta---a
+blarina_brevica ggcggacggcggtgtta---g
+crocidura_gueld ggtggacggcggcggtgttag
+SRR3948161      ggtggacggcgttgcta---a
+SRR2917427      ggtggacggcgttgcta---a
+                **.******** .* *.   .

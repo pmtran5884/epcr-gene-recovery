@@ -1,0 +1,14 @@
+# Species recovered from an unannotated (or absent) assembly, one per line.
+#
+# mode   genome = the taxon has an assembly; miniprot finds the gene directly.
+#          reads = the taxon has NO assembly; the locus is reconstructed from WGS
+#                  reads against the scaffold species (see RUNS in params.sh).
+#          scaffold = reference species: has an assembly AND an annotation. Used
+#                  as the mapping scaffold for the reads route and as the
+#                  independent check on the pipeline. Not itself a target.
+#
+# label<TAB>mode<TAB>assembly_acc<TAB>query_acc<TAB>assembly_url
+rattus_rattus	scaffold	GCF_011064425.1	NP_001020904.1	https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/011/064/425/GCF_011064425.1_Rrattus_CSIRO_v1/GCF_011064425.1_Rrattus_CSIRO_v1_genomic.fna.gz
+blarina_brevicauda	genome	GCA_051295465.2	XP_004612598.1	https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/051/295/465/GCA_051295465.2_mBlaBre1_p1.2/GCA_051295465.2_mBlaBre1_p1.2_genomic.fna.gz
+crocidura_gueldenstaedtii	genome	GCA_965212715.2	XP_004612598.1	https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/965/212/715/GCA_965212715.2_mCroZim1.2/GCA_965212715.2_mCroZim1.2_genomic.fna.gz
+rattus_flavipectus	reads	-	NP_001020904.1	-

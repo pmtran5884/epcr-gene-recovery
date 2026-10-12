@@ -1,0 +1,11 @@
+taxon_a	taxon_b	len_a	len_b	aligned_columns	diffs	identity_pct
+rattus_rattus	blarina_brevicauda	240	242	237	83	64.98
+rattus_rattus	crocidura_gueldenstaedtii	240	241	237	88	62.87
+rattus_rattus	SRR3948161	240	240	240	0	100.00
+rattus_rattus	SRR2917427	240	240	240	0	100.00
+blarina_brevicauda	crocidura_gueldenstaedtii	242	241	240	43	82.08
+blarina_brevicauda	SRR3948161	242	240	237	83	64.98
+blarina_brevicauda	SRR2917427	242	240	237	83	64.98
+crocidura_gueldenstaedtii	SRR3948161	241	240	237	88	62.87
+crocidura_gueldenstaedtii	SRR2917427	241	240	237	88	62.87
+SRR3948161	SRR2917427	240	240	240	0	100.00

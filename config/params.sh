@@ -1,20 +1,19 @@
-# Configuration for the PROCR/EPCR miniprot extraction + locus reconstruction pipeline.
-# Every value a user might reasonably want to change lives here.
+# Configuration for the EPCR recovery pipeline.
+#
+# Species, assemblies and query proteins live in config/targets.tsv.
+# This file holds the parameters.
 
-# --- Query protein (protein-to-genome query for miniprot) -------------------
-QUERY_ACC="NP_001020904.1"            # Rattus norvegicus EPCR precursor, 241 aa
+# --- Targets (see config/targets.tsv for accessions and URLs) --------------
+SCAFFOLD_LABEL="rattus_rattus"        # mode 'scaffold': assembly + annotation
+GENOME_TARGETS="blarina_brevicauda crocidura_gueldenstaedtii"   # mode 'genome'
+READ_TARGET="rattus_flavipectus"      # mode 'reads': no assembly at all
+RUNS="SRR3948161 SRR2917427"          # WGS runs for the reads target
 
-# --- Reference assembly (the taxon that HAS a genome) ----------------------
-ASM_ACC="GCF_011064425.1"
-ASM_NAME="Rrattus_CSIRO_v1"
-ASM_URL="https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/011/064/425/GCF_011064425.1_Rrattus_CSIRO_v1/GCF_011064425.1_Rrattus_CSIRO_v1_genomic.fna.gz"
-REF_LABEL="rattus_rattus"
-
-# --- Reconstruction target (the taxon that has only reads) ----------------
-# Rattus flavipectus is an NCBI synonym of Rattus tanezumi (taxid 35732):
-# no assembly, no WGS contigs, no PROCR mRNA. These are two of its WGS runs.
-RUNS="SRR3948161 SRR2917427"
-TARGET_LABEL="rattus_flavipectus"
+# Backwards-compatible aliases used by steps 03 and 04.
+REF_LABEL="$SCAFFOLD_LABEL"
+TARGET_LABEL="$READ_TARGET"
+QUERY_ACC="NP_001020904.1"            # R. norvegicus EPCR, query for the Rattus clade
+ASM_ACC="GCF_011064425.1"             # scaffold assembly (Rrattus_CSIRO_v1)
 
 # --- Parameters ------------------------------------------------------------
 FLANK=25000          # bp of flanking sequence each side of the gene in the bait

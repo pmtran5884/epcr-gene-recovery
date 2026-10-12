@@ -1,21 +1,39 @@
-# PROCR / EPCR in *Rattus rattus* and *Rattus flavipectus*
+# EPCR recovery in species with no annotated *PROCR*
 
-miniprot extraction of the endothelial protein C receptor (EPCR, gene *PROCR*) coding sequence from
-the *Rattus rattus* genome, and reconstruction of the same locus for *Rattus flavipectus* — a taxon
-that has **no deposited genome** — from two independent WGS runs.
+Recovering the endothelial protein C receptor (EPCR, gene *PROCR*) coding sequence for three
+mammals that have **no annotated *PROCR* record** in NCBI or UniProt — two from unannotated
+genome assemblies, one from raw WGS reads because it has no assembly at all.
 
-## Result
+| target species | what is deposited | route | result |
+|---|---|---|---|
+| ***Blarina brevicauda*** (northern short-tailed shrew) | assembly `GCA_051295465.2`, **no annotation** | miniprot on the assembly | **242 aa**, `JBKFBT020000153.1:87,596-91,813 (+)`, 4 exons, 729 bp |
+| ***Crocidura gueldenstaedtii*** (Güldenstädt's shrew) | assembly `GCA_965212715.2`, **no annotation** | miniprot + start-codon trim | **241 aa**, `OZ243422.1:4,125,072-4,130,097 (−)`, 4 exons, 726 bp |
+| ***Rattus flavipectus*** (= *R. tanezumi*) | **no assembly at all** — only mito/barcode records <20 kb, plus WGS reads | two-pass read capture → consensus → miniprot | **240 aa**, reconstructed independently from two WGS runs |
 
-All three EPCR proteins are **identical: 240 aa, 100% identity, no gaps.** The differences are
-entirely synonymous and sit at third codon positions:
+*Rattus rattus* (`GCF_011064425.1`) is in the pipeline but is **not** a target: it has both an
+assembly and a RefSeq annotation, and serves two purposes — the mapping scaffold for the
+*flavipectus* reads, and an end-to-end control, because miniprot's translation of its locus must
+come out byte-identical to RefSeq `XP_032760446.1`. It does.
 
-| A | B | CDS bp | CDS diffs | CDS identity | synonymous | nonsynonymous | protein identity |
-|---|---|---|---|---|---|---|---|
-| *R. rattus* | SRR3948161 | 723 | 4 | 99.447% | 4 | 0 | 100% |
-| *R. rattus* | SRR2917427 | 723 | 5 | 99.308% | 5 | 0 | 100% |
-| SRR3948161 | SRR2917427 | 723 | 1 | 99.862% | 1 | 0 | 100% |
+Every protein here is a **gene prediction**, not a deposited sequence. Cite them as such, with the
+assembly accession (shrews) or the run accession (*flavipectus*).
 
-| CDS position | change | codon | residue | present in |
+## Results
+
+Pairwise protein identity, from the MAFFT alignment of all recovered sequences:
+
+| | *R. rattus* | *B. brevicauda* | *C. gueldenstaedtii* |
+|---|---|---|---|
+| *R. rattus* | — | 64.98% | 62.87% |
+| *B. brevicauda* | 64.98% | — | 82.08% |
+| *C. gueldenstaedtii* | 62.87% | 82.08% | — |
+| *R. flavipectus* (both runs) | **100%** | 64.98% | 62.87% |
+
+The two shrews sit at 82% to each other and ~63-65% to the rats, consistent with EPCR's fast-
+evolving MHC-like fold. Within *Rattus*, the *flavipectus* reconstructions are **identical** to
+*R. rattus* at the protein level; their 723 bp CDS differ at 4-5 positions, every one synonymous:
+
+| CDS position | change | codon | residue | seen in |
 |---|---|---|---|---|
 | c.48 | T→C | TGT→TGC | Cys16 | both runs |
 | c.66 | T→C | GAT→GAC | Asp22 | both runs |
@@ -23,101 +41,82 @@ entirely synonymous and sit at third codon positions:
 | c.369 | T→G | CCT→CCG | Pro123 | both runs |
 | c.426 | T→Y (T/C het) | TTT→TTY | Phe142 | SRR2917427 only |
 
-The four fixed differences are recovered **identically in two different individuals sequenced at
-12× and 32×**, which is the evidence that they are properties of the taxon rather than mapping
-artefacts. The fifth is a heterozygous silent site private to the deeper individual.
+The four fixed differences were recovered identically from two individuals in two different
+studies (PRJNA330658 at ~12×, PRJNA301523 at ~32×), which is what distinguishes a property of the
+taxon from a mapping artefact.
 
-*R. rattus* locus: `NC_046158.1:135,103,022–135,106,686 (+)`, 4 CDS exons, 97.93% identity /
-99.17% positives to the *R. norvegicus* query. The translation is **byte-identical to RefSeq
-`XP_032760446.1`**, which validates the extraction independently of this pipeline.
+## Two routes, and when each applies
 
-## Read this before citing the *flavipectus* sequence
+**Assembly route** (`scripts/01_extract_from_assembly.sh`) — for a genome with no annotation.
+miniprot aligns a relative's EPCR protein onto the assembly and infers the exon structure itself;
+no GFF, GTF or gene model is required. Query proteins: *R. norvegicus* `NP_001020904.1` for the
+rats, *Sorex araneus* `XP_004612598.1` for the shrews.
 
-*Rattus flavipectus* is an NCBI **synonym of *Rattus tanezumi*** (taxid 35732), and that taxon has
-**no genome assembly, no WGS contigs and no PROCR mRNA** on record — as queried on 2026-10-12, all
-2,688 of its nucleotide records are shorter than 20 kb (mitochondrial genomes, barcode amplicons).
-There is nothing deposited for miniprot to align a protein against. The sequences here are
-**read-based reconstructions** of the locus from raw WGS reads and must be cited as such, with the
-run accession — not as deposited sequences.
+**Reads route** (`scripts/02_fetch_sra.sh`, `scripts/03_reconstruct_locus.sh`) — for a taxon with
+no assembly. Reads are captured onto the scaffold species' locus, re-mapped competitively against
+its whole genome, and turned into a consensus that miniprot then treats as a genome. This is
+reference-guided reconstruction, so it can only report positions where reads mapped; unsupported
+positions are written as N rather than inheriting the scaffold base.
 
-Coverage support for the CDS (no base below the `--min-depth 3` floor in either run):
+## Four traps this pipeline exists to handle
 
-| run | gene depth | exon 1 | exon 2 | exon 3 | exon 4 | locus divergence vs *R. rattus* |
-|---|---|---|---|---|---|---|
-| SRR3948161 | 12.46× | 7.6× | 11.0× | 16.3× | 10.6× | 961 variants / 53.7 kb (819 SNV, 142 indel) |
-| SRR2917427 | 32.21× | 32.0× | 32.4× | 45.8× | 29.6× | 1,359 variants / 53.7 kb (1,168 SNV, 191 indel) |
-
-The locus-wide divergence matters: a CDS that comes out nearly identical to the reference is only
-believable if the surrounding introns are visibly divergent, i.e. if the consensus is demonstrably
-tracking the reads rather than reverting to the reference.
+1. **Bait-only read capture is not specific, and MAPQ does not fix it.** A ~50 kb bait holds no
+   competing copy of the repeat families in its introns, so repeat reads from elsewhere in the
+   genome have nowhere better to go and are handed high MAPQ: 825× over PROCR against an expected
+   ~14×, i.e. ~98% off-target. Hence the competitive second pass against the whole 2.4 Gb assembly.
+2. **miniprot can over-extend past the start codon.** With a diverged query (82% for *Crocidura*)
+   the end bonus makes it align the query's N-terminus into upstream genomic sequence, so the raw
+   translation began `NVSPR`-`MLTALLP…`. The fix is a deterministic trim to the first in-frame ATG —
+   15 bp here — not hand-written coordinates; see [`scripts/standalone/README.md`](scripts/standalone/README.md).
+3. **`samtools consensus` has no base-quality floor by default.** With `-A` it promoted low-quality
+   base noise to six "heterozygous" CDS calls in SRR2917427 that `mpileup -Q 15` shows zero support
+   for. `--min-BQ 15 --min-MQ 20` removes all six and leaves the one real 19/41 site.
+4. **The majority-base and `-A` consensus flavours are not coordinate-compatible** (`-A` keeps
+   ambiguous insertions; they differ by ~150-200 bp per 53 kb), so each gets its own miniprot pass
+   and the report step refuses to compare them if the lifted CDS lengths disagree.
 
 ## Quickstart
 
 ```bash
 conda env create -f environment.yml
 conda activate procr-miniprot
-./run_all.sh            # ~2 h per WGS run, dominated by a 15-39 GB download
+./run_all.sh
 ```
 
-Everything configurable is in [`config/params.sh`](config/params.sh) — query protein, assembly,
-run accessions, flank size, thread count, MAPQ/depth thresholds. Point `RUNS` at other SRA
-accessions, or `QUERY_ACC`/`ASM_URL` at another gene or assembly, and nothing else needs editing.
+Runtime: the assembly route is ~2 min per species (download + miniprot ~20 s, peak ~20 GB RAM for
+the 2.4 Gb genomes). The reads route is ~1-2 h per run, dominated by the 15-39 GB `.sra` download
+and one streaming pass over all reads.
 
-Disk: ~45 GB for the assembly plus the size of each `.sra` (15 GB and 39 GB for the two runs here).
-Peak RAM ~10 GB (miniprot indexing the 2.4 Gb genome).
+To add a species, append a line to [`config/targets.tsv`](config/targets.tsv) — label, mode,
+assembly accession, query accession, URL — and nothing else needs editing. Thresholds live in
+[`config/params.sh`](config/params.sh).
 
-## Pipeline
-
-| step | script | what it does |
-|---|---|---|
-| 00 | [`scripts/00_fetch_inputs.sh`](scripts/00_fetch_inputs.sh) | query protein from NCBI, reference assembly |
-| 01 | [`scripts/01_extract_reference.sh`](scripts/01_extract_reference.sh) | `miniprot -t 8 -j 2` on the assembly; bait = gene ± 25 kb |
-| 02 | [`scripts/02_fetch_sra.sh`](scripts/02_fetch_sra.sh) | `.sra` via the NCBI SDL manifest, md5-verified |
-| 03 | [`scripts/03_reconstruct_locus.sh`](scripts/03_reconstruct_locus.sh) | two-pass read capture → consensus → miniprot → variants |
-| 04 | [`scripts/04_align_and_report.py`](scripts/04_align_and_report.py) | MAFFT alignments, pairwise tables, `results/report.md` |
-
-### The one thing to understand before reusing this
-
-Capturing reads directly onto a small extracted locus **is not specific, and MAPQ does not fix it.**
-A ~50 kb bait contains no competing copy of the repeat families in its introns, so reads from
-homologous repeats elsewhere in the genome have nowhere better to go and are handed high MAPQ.
-Measured here: **825× over PROCR at MAPQ ≥ 20 against an expected ~14×** — roughly 98% of retained
-reads were off-target. A consensus called at that stage is contaminated by paralogous reads.
-
-So pass 1 (capture against the bait) is used only as a sensitivity filter, and its survivors are
-re-mapped **competitively against the whole 2.4 Gb assembly**, keeping MAPQ ≥ 20 alignments that land
-back in the locus. Depth then drops to the run's genome-wide coverage, which is the signal that the
-capture is now specific.
-
-Two further traps, both documented in [`docs/METHODS.md`](docs/METHODS.md): `samtools consensus`
-applies no base-quality floor by default (with `-A` it promoted six positions of noise to
-heterozygous calls that `mpileup -Q 15` shows zero support for), and the majority-base and `-A`
-consensus flavours are not coordinate-compatible, so each needs its own miniprot pass.
-
-## Outputs
+## Layout
 
 ```
-results/
-  summary.tsv                  one row per pairwise comparison
-  codon_differences.tsv        one row per nucleotide difference, with effect
-  heterozygous_cds_sites.tsv   het CDS sites per run
-  report.md                    the tables above, rendered
-  proteins_all.faa  cds_all.fna
-  alignments/                  MAFFT L-INS-i protein and CDS alignments
-  rattus_rattus/               miniprot.gff, protein.faa, bait.fa, cds_exons.bed, locus.txt
-  <SRR accession>/             protein.faa, locus_consensus.fa, miniprot.gff, locus.bam,
-                               locus.vcf.gz, qc.tsv, exon_depth.tsv, sra_manifest.txt, logs
+config/targets.tsv      species, mode (genome|reads|scaffold), assembly, query protein
+config/params.sh        thresholds: flank, threads, MAPQ, min-depth, call-fract
+scripts/01_extract_from_assembly.sh   assembly route (any unannotated genome)
+scripts/extract_cds_from_gff.py       GFF -> CDS/protein + start-codon trim + QC checks
+scripts/02_fetch_sra.sh               .sra via the NCBI SDL manifest, md5-verified
+scripts/03_reconstruct_locus.sh       two-pass capture -> consensus -> miniprot -> variants
+scripts/04_align_and_report.py        MAFFT alignments, identity tables, results/report.md
+scripts/standalone/                   the original single-file shrew scripts, kept verbatim
+results/<taxon>/        protein.faa, cds.fna, miniprot.gff, cds_exons.bed, locus.txt, qc.tsv
+results/<SRR>/          protein.faa, locus_consensus.fa, locus.bam, locus.vcf.gz, qc.tsv, depth
+results/                proteins_all.faa, cds_all.fna, protein_identity.tsv, summary.tsv,
+                        codon_differences.tsv, heterozygous_cds_sites.tsv, alignments/, report.md
 ```
 
 ## Data and software
 
-Data: `GCF_011064425.1` (*R. rattus* assembly) · `NP_001020904.1` (*R. norvegicus* query) ·
-`XP_032760446.1` (RefSeq check) · `SRR3948161`, `SRR2917427` (*R. tanezumi* WGS).
+Assemblies `GCA_051295465.2`, `GCA_965212715.2`, `GCF_011064425.1` · query proteins
+`XP_004612598.1`, `NP_001020904.1` · control `XP_032760446.1` · WGS runs `SRR3948161`,
+`SRR2917427`.
 
-Software: miniprot 0.18-r281 · minimap2 · samtools/bcftools 1.x · sra-tools 3.4.1 · MAFFT 7.526.
-
+miniprot 0.18-r281 · minimap2 · samtools/bcftools 1.x · sra-tools 3.4.1 · MAFFT 7.526 · seqkit.
 Please cite [miniprot](https://github.com/lh3/miniprot) (Li 2023, *Bioinformatics*) and
-[minimap2](https://github.com/lh3/minimap2) (Li 2018) if you use this.
+[minimap2](https://github.com/lh3/minimap2) (Li 2018).
 
 ## License
 

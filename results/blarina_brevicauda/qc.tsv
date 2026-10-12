@@ -1,0 +1,20 @@
+label	blarina_brevicauda
+assembly	GCA_051295465.2
+query	XP_004612598.1
+contig	JBKFBT020000153.1
+strand	+
+gene_start	87596
+gene_end	91813
+cds_start	87596
+cds_end	91813
+identity_to_query	0.8694
+frameshifts_reported	0
+cds_exons	4
+cds_bp	729
+cds_multiple_of_3	yes
+protein_aa	242
+starts_with_M	yes
+ends_with_stop	yes
+internal_stops	0
+ambiguous_residues	0
+n_terminal_trim	none (already starts with M)

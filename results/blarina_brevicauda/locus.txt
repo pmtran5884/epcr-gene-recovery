@@ -1,0 +1,7 @@
+contig	JBKFBT020000153.1
+gene_start	87596
+gene_end	91813
+cds_start	87596
+cds_end	91813
+strand	+
+identity_to_query	0.8694

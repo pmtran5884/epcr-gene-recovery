@@ -1,16 +1,41 @@
-# PROCR / EPCR extraction and alignment
+# EPCR recovery in species with no annotated PROCR
 
-Query protein: `NP_001020904.1`  |  reference assembly: `GCF_011064425.1` (`NC_046158.1:135103022-135106686`, identity to query 0.9793)
+## Sequences recovered
 
-## Sequences
+| taxon | mode | source | query | protein |
+|---|---|---|---|---|
+| rattus_rattus | scaffold | GCF_011064425.1 `NC_046158.1:135103022-135106686(+)` | NP_001020904.1 | 240 aa |
+| blarina_brevicauda | genome | GCA_051295465.2 `JBKFBT020000153.1:87596-91813(+)` | XP_004612598.1 | 242 aa |
+| crocidura_gueldenstaedtii | genome | GCA_965212715.2 `OZ243422.1:4125072-4130097(-)` | XP_004612598.1 | 241 aa |
+| rattus_flavipectus | reads | SRR3948161, 12.46x over gene | NP_001020904.1 | 240 aa |
+| rattus_flavipectus | reads | SRR2917427, 32.21x over gene | NP_001020904.1 | 240 aa |
 
-| label | source | protein length |
-|---|---|---|
-| rattus_rattus | GCF_011064425.1 assembly, miniprot | 240 aa |
-| SRR3948161 | WGS reads, reconstruction (12.46x over gene) | 240 aa |
-| SRR2917427 | WGS reads, reconstruction (32.21x over gene) | 240 aa |
+## Extraction QC (assembly route)
 
-## Pairwise comparisons
+| taxon | identity to query | exons | CDS bp | protein | starts M | internal stops | frameshifts | N-terminal trim |
+|---|---|---|---|---|---|---|---|---|
+| rattus_rattus | 0.9793 | 4 | 723 | 240 aa | yes | 0 | 0 | none (already starts with M) |
+| blarina_brevicauda | 0.8694 | 4 | 729 | 242 aa | yes | 0 | 0 | none (already starts with M) |
+| crocidura_gueldenstaedtii | 0.8178 | 4 | 726 | 241 aa | yes | 0 | 0 | trimmed 15 bp to first in-frame ATG (codon 6) |
+
+## Protein identity (all taxa, from the MAFFT alignment)
+
+| A | B | len A | len B | aligned columns | diffs | identity |
+|---|---|---|---|---|---|---|
+| rattus_rattus | blarina_brevicauda | 240 | 242 | 237 | 83 | 64.98% |
+| rattus_rattus | crocidura_gueldenstaedtii | 240 | 241 | 237 | 88 | 62.87% |
+| rattus_rattus | SRR3948161 | 240 | 240 | 240 | 0 | 100.00% |
+| rattus_rattus | SRR2917427 | 240 | 240 | 240 | 0 | 100.00% |
+| blarina_brevicauda | crocidura_gueldenstaedtii | 242 | 241 | 240 | 43 | 82.08% |
+| blarina_brevicauda | SRR3948161 | 242 | 240 | 237 | 83 | 64.98% |
+| blarina_brevicauda | SRR2917427 | 242 | 240 | 237 | 83 | 64.98% |
+| crocidura_gueldenstaedtii | SRR3948161 | 241 | 240 | 237 | 88 | 62.87% |
+| crocidura_gueldenstaedtii | SRR2917427 | 241 | 240 | 237 | 88 | 62.87% |
+| SRR3948161 | SRR2917427 | 240 | 240 | 240 | 0 | 100.00% |
+
+## CDS comparison within the *Rattus* group
+
+Codon-level comparison is restricted to taxa whose CDS are the same length; across species the lengths differ and the protein table above applies instead.
 
 | A | B | CDS bp | CDS diffs | CDS identity | syn | nonsyn | protein diffs | protein identity |
 |---|---|---|---|---|---|---|---|---|

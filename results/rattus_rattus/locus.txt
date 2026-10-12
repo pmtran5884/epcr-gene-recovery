@@ -1,6 +1,9 @@
 contig	NC_046158.1
 gene_start	135103022
 gene_end	135106686
+cds_start	135103022
+cds_end	135106686
+strand	+
+identity_to_query	0.9793
 bait_start	135078022
 bait_end	135131686
-identity_to_query	0.9793

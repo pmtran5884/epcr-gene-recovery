@@ -1,0 +1,20 @@
+label	crocidura_gueldenstaedtii
+assembly	GCA_965212715.2
+query	XP_004612598.1
+contig	OZ243422.1
+strand	-
+gene_start	4125072
+gene_end	4130112
+cds_start	4125072
+cds_end	4130097
+identity_to_query	0.8178
+frameshifts_reported	0
+cds_exons	4
+cds_bp	726
+cds_multiple_of_3	yes
+protein_aa	241
+starts_with_M	yes
+ends_with_stop	yes
+internal_stops	0
+ambiguous_residues	0
+n_terminal_trim	trimmed 15 bp to first in-frame ATG (codon 6)

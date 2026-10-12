@@ -129,20 +129,47 @@ def pair_stats(a, b):
     return diffs, ident
 
 
+def targets():
+    """config/targets.tsv -> [(label, mode, assembly_acc, query_acc, url), ...]"""
+    rows = []
+    with open(os.path.join(ROOT, "config", "targets.tsv")) as fh:
+        for line in fh:
+            if line.startswith("#") or not line.strip():
+                continue
+            f = line.rstrip("\n").split("\t")
+            if len(f) >= 4:
+                rows.append(f)
+    return rows
+
+
+def aln_identity(a, b):
+    """Percent identity over columns where neither sequence is a gap."""
+    cols = [(x, y) for x, y in zip(a, b) if x != "-" and y != "-"]
+    if not cols:
+        return float("nan"), 0, 0
+    same = sum(x == y for x, y in cols)
+    return 100.0 * same / len(cols), len(cols), len(cols) - same
+
+
 def main():
     P = params()
     res = os.path.join(ROOT, P.get("RESULTS", "results"))
     ref_label = P["REF_LABEL"]
     runs = [r for r in P["RUNS"].split() if os.path.isdir(os.path.join(res, r))]
+    tgts = targets()
+    genome_labels = [f[0] for f in tgts if f[1] in ("scaffold", "genome")
+                     and os.path.isdir(os.path.join(res, f[0]))]
+    tgt_info = {f[0]: {"mode": f[1], "assembly": f[2], "query": f[3]} for f in tgts}
     os.makedirs(os.path.join(res, "alignments"), exist_ok=True)
 
-    # --- reference CDS, lifted out of the bait using genomic exon coordinates
-    refdir = os.path.join(res, ref_label)
-    locus = dict(l.split("\t") for l in open(os.path.join(refdir, "locus.txt")).read().splitlines())
-    bait = list(read_fasta(os.path.join(refdir, "bait.fa")).values())[0]
-    off = int(locus["bait_start"])
-    cds = {ref_label: "".join(bait[s - off:e - off + 1] for s, e in cds_exons(os.path.join(refdir, "miniprot.gff")))}
-    prot = {ref_label: list(read_fasta(os.path.join(refdir, "protein.faa")).values())[0]}
+    # --- every taxon recovered straight from an assembly (step 01)
+    cds, prot, exqc = {}, {}, {}
+    for label in genome_labels:
+        d = os.path.join(res, label)
+        prot[label] = list(read_fasta(os.path.join(d, "protein.faa")).values())[0]
+        cds[label] = list(read_fasta(os.path.join(d, "cds.fna")).values())[0]
+        exqc[label] = dict(l.split("\t", 1) for l in
+                           open(os.path.join(d, "qc.tsv")).read().splitlines() if "\t" in l)
 
     # --- one CDS per run, lifted out of that run's own consensus
     het = {}   # acc -> [(cds_pos, iupac_code, codon, residue(s), effect), ...]
@@ -187,7 +214,7 @@ def main():
         with open(os.path.join(d, "protein.faa"), "w") as fh:
             fh.write(f">{P['TARGET_LABEL']}_EPCR {acc}_reconstruction iupac_aware_translation\n{prot[acc]}\n")
 
-    labels = [ref_label] + runs
+    labels = genome_labels + runs
     with open(os.path.join(res, "proteins_all.faa"), "w") as fh:
         for k in labels:
             fh.write(f">{k}\n{prot[k]}\n")
@@ -201,15 +228,26 @@ def main():
         mafft(os.path.join(res, "cds_all.fna"), os.path.join(res, "alignments", "cds_alignment.fasta"))
         mafft(os.path.join(res, "cds_all.fna"), os.path.join(res, "alignments", "cds_alignment.clustal"), clustal=True)
 
-    # --- pairwise tables
+    # --- protein identity across every taxon, from the MAFFT alignment
+    paln = read_fasta(os.path.join(res, "alignments", "protein_alignment.fasta")) if len(labels) > 1 else {}
+    ident_rows = []
+    for a, b in combinations(labels, 2):
+        pid, ncol, ndif = aln_identity(paln[a], paln[b])
+        ident_rows.append((a, b, len(prot[a]), len(prot[b]), ncol, ndif, f"{pid:.2f}"))
+    with open(os.path.join(res, "protein_identity.tsv"), "w") as fh:
+        fh.write("taxon_a\ttaxon_b\tlen_a\tlen_b\taligned_columns\tdiffs\tidentity_pct\n")
+        for r in ident_rows:
+            fh.write("\t".join(str(x) for x in r) + "\n")
+
+    # --- codon-level comparison, only within a group of equal-length CDS.
+    # Across species the CDS differ in length (723/726/729 bp here), so a
+    # per-codon table would be an artefact of the gap placement; those pairs are
+    # covered by the protein identity table above.
     rows, codon_rows = [], []
     for a, b in combinations(labels, 2):
         if len(cds[a]) != len(cds[b]):
-            # fall back to the aligned CDS if lengths differ (indel in the CDS)
-            aln = read_fasta(os.path.join(res, "alignments", "cds_alignment.fasta"))
-            sa, sb = aln[a], aln[b]
-        else:
-            sa, sb = cds[a], cds[b]
+            continue
+        sa, sb = cds[a], cds[b]
         ndiff, nid = pair_stats(sa, sb)
         pdiff, pid = pair_stats(prot[a], prot[b]) if len(prot[a]) == len(prot[b]) else ([], float("nan"))
         syn = 0
@@ -233,20 +271,43 @@ def main():
             fh.write("\t".join(str(x) for x in r) + "\n")
 
     # --- report
-    out = ["# PROCR / EPCR extraction and alignment", ""]
-    out.append(f"Query protein: `{P['QUERY_ACC']}`  |  reference assembly: `{P['ASM_ACC']}` "
-               f"(`{locus['contig']}:{locus['gene_start']}-{locus['gene_end']}`, "
-               f"identity to query {locus['identity_to_query']})")
-    out += ["", "## Sequences", "", "| label | source | protein length |", "|---|---|---|",
-            f"| {ref_label} | {P['ASM_ACC']} assembly, miniprot | {len(prot[ref_label])} aa |"]
+    out = ["# EPCR recovery in species with no annotated PROCR", ""]
+    out += ["## Sequences recovered", "",
+            "| taxon | mode | source | query | protein |", "|---|---|---|---|---|"]
+    for label in genome_labels:
+        q = exqc[label]
+        span = f"{q.get('cds_start', q['gene_start'])}-{q.get('cds_end', q['gene_end'])}"
+        out.append(f"| {label} | {tgt_info[label]['mode']} | {q['assembly']} "
+                   f"`{q['contig']}:{span}({q['strand']})` "
+                   f"| {q['query']} | {len(prot[label])} aa |")
     for acc in runs:
         qc = dict(l.split("\t") for l in open(os.path.join(res, acc, "qc.tsv")).read().splitlines())
-        out.append(f"| {acc} | WGS reads, reconstruction ({qc['gene_mean_depth']}x over gene) | {len(prot[acc])} aa |")
-    out += ["", "## Pairwise comparisons", "",
-            "| A | B | CDS bp | CDS diffs | CDS identity | syn | nonsyn | protein diffs | protein identity |",
-            "|---|---|---|---|---|---|---|---|---|"]
-    for r in rows:
-        out.append(f"| {r[0]} | {r[1]} | {r[2]} | {r[3]} | {r[4]}% | {r[5]} | {r[6]} | {r[9]} | {r[10]}% |")
+        out.append(f"| {P['READ_TARGET']} | reads | {acc}, {qc['gene_mean_depth']}x over gene "
+                   f"| {P['QUERY_ACC']} | {len(prot[acc])} aa |")
+
+    out += ["", "## Extraction QC (assembly route)", "",
+            "| taxon | identity to query | exons | CDS bp | protein | starts M | internal stops | "
+            "frameshifts | N-terminal trim |", "|---|---|---|---|---|---|---|---|---|"]
+    for label in genome_labels:
+        q = exqc[label]
+        out.append(f"| {label} | {q['identity_to_query']} | {q['cds_exons']} | {q['cds_bp']} | "
+                   f"{q['protein_aa']} aa | {q['starts_with_M']} | {q['internal_stops']} | "
+                   f"{q['frameshifts_reported']} | {q['n_terminal_trim']} |")
+
+    out += ["", "## Protein identity (all taxa, from the MAFFT alignment)", "",
+            "| A | B | len A | len B | aligned columns | diffs | identity |",
+            "|---|---|---|---|---|---|---|"]
+    for r in ident_rows:
+        out.append(f"| {r[0]} | {r[1]} | {r[2]} | {r[3]} | {r[4]} | {r[5]} | {r[6]}% |")
+
+    if rows:
+        out += ["", "## CDS comparison within the *Rattus* group", "",
+                "Codon-level comparison is restricted to taxa whose CDS are the same length; "
+                "across species the lengths differ and the protein table above applies instead.", "",
+                "| A | B | CDS bp | CDS diffs | CDS identity | syn | nonsyn | protein diffs | protein identity |",
+                "|---|---|---|---|---|---|---|---|---|"]
+        for r in rows:
+            out.append(f"| {r[0]} | {r[1]} | {r[2]} | {r[3]} | {r[4]}% | {r[5]} | {r[6]} | {r[9]} | {r[10]}% |")
     if codon_rows:
         out += ["", "## Nucleotide differences", "",
                 "| A | B | CDS pos | change | codon | residue | effect |", "|---|---|---|---|---|---|---|"]

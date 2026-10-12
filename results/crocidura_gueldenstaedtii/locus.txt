@@ -1,0 +1,7 @@
+contig	OZ243422.1
+gene_start	4125072
+gene_end	4130112
+cds_start	4125072
+cds_end	4130097
+strand	-
+identity_to_query	0.8178
